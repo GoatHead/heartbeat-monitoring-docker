@@ -1,0 +1,1 @@
+빌드에 `heartbeat-monitoring-frontend` 및 `heartbeat-monitoring-backend`가 필요합니다.
