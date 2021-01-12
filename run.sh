@@ -1,4 +1,4 @@
 #!/bin/bash
 nginx
 cd /apps/api/
-/apps/api/main
+/apps/api/api_server

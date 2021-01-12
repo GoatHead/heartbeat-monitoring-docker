@@ -6,7 +6,7 @@ COPY ./heartbeat-monitoring-backend /tmp/backend
 WORKDIR /tmp/backend
 
 RUN apk add --no-cache gcc musl-dev
-RUN go get && CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s' -o main main.go
+RUN go get && CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s' -o api_server main.go
 
 # 프론트엔드 빌드 스테이지
 FROM node:14.15.3 AS frontend-stage
@@ -36,7 +36,7 @@ RUN mkdir -p /apps/app && \
 
 COPY ./default.conf /etc/nginx/conf.d/
 
-COPY --from=backend-stage /tmp/backend/main /apps/api/
+COPY --from=backend-stage /tmp/backend/api_server /apps/api/
 COPY --from=frontend-stage /tmp/frontend/dist/bundle.js /apps/app/
 COPY --from=frontend-stage /tmp/frontend/dist/index.html /apps/app/
 
