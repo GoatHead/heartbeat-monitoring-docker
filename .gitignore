@@ -1,2 +1,4 @@
 .idea
 heartbeat-monitoring*
+*.tar
+*.db
