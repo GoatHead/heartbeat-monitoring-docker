@@ -31,6 +31,7 @@ COPY ./run.sh /apps/
 
 RUN mkdir -p /apps/app && \
     mkdir -p /apps/api && \
+    mkdir -p /apps/db && \
     rm -f /etc/nginx/conf.d/default.conf && \
     chmod 755 /apps/run.sh
 
