@@ -5,8 +5,12 @@ COPY ./heartbeat-monitoring-backend /tmp/backend
 
 WORKDIR /tmp/backend
 
-RUN apk add --no-cache gcc musl-dev
-RUN go get && CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s' -o api_server main.go
+# https://github.com/padthaitofuhot/apkfastestmirror << 가장 빠른 미러 검색
+RUN wget https://raw.githubusercontent.com/padthaitofuhot/apkfastestmirror/master/apkfastestmirror.sh && \
+        ash ./apkfastestmirror.sh --install && \
+        ash ./apkfastestmirror.sh --replace && \
+        apk add --no-cache gcc musl-dev && \
+        go get && CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s' -o api_server main.go
 
 # 프론트엔드 빌드 스테이지
 FROM node:14.15.3 AS frontend-stage
